@@ -95,9 +95,9 @@ em {
 */
 
 body {
-  background: ;
+  background:#F5F5DC;
   color:;
-  font: 300 16px/22px /*"Lato",*/ "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 300 16px/22px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /*
@@ -106,37 +106,27 @@ body {
   ========================================
 */
 
-
-
-
-
-/*
-  ========================================
-  Utility
-  ========================================
-*/
-
-
-.a-metalink{ /*Toutes div/éléments qui a un enfant <a class="a-metalink"><a/> sera entièrement clickable. Possible ensuite ed target via js*/
-  display: block; /*son parent position relative*/
-  position: absolute;
-  top:0;
-  left:0;
-  width: 100%;
-  height: 100%;
-  z-index:100;
+.boardcase{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border:2px solid black;
+  font-size: 15em;
+  overflow:hidden;
 }
 
-.overlay {
-  color: white;
-  background: rgb(0,0,0,0.4);
+.grid{
+  max-width: 80%;
+  min-height:80vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  justify-content: center;
+  text-align: center;
+  border:2px solid black;
 }
 
-/*
-  ========================================
-  Typography
-  ========================================
-*/
 
 
 /*
@@ -144,10 +134,8 @@ body {
   Primary header
   ========================================
 */
-
-
-/*
-  ========================================
-  Primary footer
-  ========================================
-*/
+header{
+  text-align: center;
+  font-size: 5rem;
+  padding:60px;
+}
