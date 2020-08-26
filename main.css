@@ -139,3 +139,76 @@ header{
   font-size: 5rem;
   padding:60px;
 }
+
+
+.starting-overlay{
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  color:white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+.starting-overlay > * {
+  flex-basis: 80%;
+}
+
+.welcome-title{
+  font-size: 4rem;
+  padding:2rem;
+  font-weight: bold;
+}
+
+form{
+  border: 5px white solid;
+  width:70%;
+  background: #606060;
+  border-radius: 5px;
+}
+
+form section {
+  margin-bottom: 2rem;
+}
+
+form h1 {
+  font-size: 1.5rem;
+  padding:1rem;
+  font-weight: bold;
+}
+
+form p {
+  margin-bottom: 1rem;
+}
+
+fieldset legend{
+  margin:auto
+}
+input {
+  background:none;
+  border: 1px solid white;
+  color:white;
+  padding: 0.5rem;
+}
+input[type="submit"]{
+  margin-bottom: 1rem;
+  width:50%;
+  background:none;
+  border: 5px solid white;
+  color:white;
+  padding:0.5rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 70px;
+}
+
+input[type="submit"]:hover{
+  color: #606060;
+  background-color: white;
+}
