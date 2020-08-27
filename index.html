@@ -27,6 +27,59 @@
   </div>
 </main>
 
+        <!-- Overlay div -->
+
+<div class = "starting-overlay">
+
+  <div class= welcome-title>Welcome to TicTacToe</div>
+
+  <form>
+    <section>
+      <h1>PLAYER 1:</h1>
+      <p>
+        <label for="name">
+          Name:
+          <input type="text" id="name" name="user1_name" placeholder="Name" required>
+        </label>
+      </p>
+
+      <fieldset>
+        <legend>Choose Pawn Shape:</legend>
+        <ul>
+            <li>
+              <label for="pawn_x">
+                <input type="radio" id="pawn_x" name="pawn_shape" value="X" required checked>
+                X
+              </label>
+            </li>
+            <li>
+              <label for="pawn_o">
+                <input type="radio" id="pawn_o" name="pawn_shape" value="O">
+                O
+              </label>
+            </li>
+        </ul>
+      </fieldset>
+    </section>
+
+    <section>
+      <h1>PLAYER 2:</h1>
+      <p>
+        <label for="name">
+          Name:
+          <input type="text" id="name" name="user2_name" placeholder="Name" required>
+        </label>
+      </p>
+    </section>
+    <input type="hidden" name="player1_turn" value="true">
+    <input type="hidden" name="player2_turn" value="false">
+    <input class = 'submit' type="submit" value ="Play !">
+  </form>
+
+</div>
+
+
+
 <script src="main.js"></script>
 </body>
 </html>
