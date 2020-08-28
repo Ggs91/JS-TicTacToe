@@ -25,7 +25,49 @@ function BoardCase(caseID, doc = document){
   }
 }
 
-const Board = (function(){ //Board est un module et non une simple factory function. On a besoin que d'une seule board dans le jeu. 1 seule closure sera crée donc. Il faut lancer un nouveau game pour réinitilisé unenouvelle board.
+
+
+function Player(name, pawnShape, turn){
+  return{
+    name,
+    pawnShape,
+    turn,
+  }
+}
+
+const Game = (function(doc, Player){
+  document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded).
+    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente getPlayer sera effective QUE lors du click du user.
+    submitBtn.addEventListener("click", initializePlayers, false);
+  });
+
+
+  function initializePlayers(e){ //Initilise les players uniquement lors du click
+    e.preventDefault();
+    closeOverlay();
+    const nameP1 = doc.querySelector("#name_p1").value;
+    const nameP2 = doc.querySelector("#name_p2").value;
+    const pawnP1 = doc.querySelector(".pawn").value;
+    const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})()
+    Game.players =  { // On set ici (lors de l'appel de getPlayrInfo) la propriété players sur Game, pas possible au bas du module.
+      player1: Player(nameP1, pawnP1, true),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
+      player2: Player(nameP2, pawnP2, false),
+    }
+  }
+
+  function closeOverlay(){
+    let overlayDiv = doc.querySelector(".starting-overlay");
+    overlayDiv.style.display = "none";
+  }
+
+  return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event)
+            //On les mettra via "Game.property = ".
+  }
+})(document, Player)
+
+
+
+Game.Board = (function(){ //Board est moduel IIFE mais aussi une propréité de Game
   const boardCases = (function(gridSize){ //Instanciation des BoardeCases via une IIFE qui set dans la variable "boardCases" le resultat de la fonction.
     const boardCasesIDs = generateBoardCasesIDsArray(gridSize);
     return boardCasesIDs.map(caseID => BoardCase(caseID))
@@ -83,42 +125,3 @@ const Board = (function(){ //Board est un module et non une simple factory funct
     boardCases,
   }
 })()
-
-function Player(name, pawnShape){
-  return {
-    name,
-    pawnShape,
-    turn: undefined,
-  }
-}
-
-const Game = (function(doc){
-
-  document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded).
-    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente getPlayer sera effective QUE lors du click du user.
-    submitBtn.addEventListener("click", getPlayersInfos, false);
-  });
-
-
-  function getPlayersInfos(e){ //Initilise les players uniquement lors du click
-    e.preventDefault();
-    closeOverlay();
-    let nameP1 = doc.querySelector("#name_p1").value;
-    let nameP2 = doc.querySelector("#name_p2").value;
-    let pawnP1 = doc.querySelector(".pawn").value;
-    let pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})()
-    Game.players =  { // On set ici (lors de l'appel de getPlayrInfo) la propriété players sur Game, pas possible au bas du module.
-      player1: (Player(nameP1, pawnP1, true))(),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
-      player2: (Player(nameP2, pawnP2, false))(),
-    }
-  }
-
-  function closeOverlay(){
-    let overlayDiv = doc.querySelector(".starting-overlay");
-    overlayDiv.style.display = "none";
-  }
-
-  return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event)
-            //On les mettra via "Game.property = ".
-  }
-})(document)
