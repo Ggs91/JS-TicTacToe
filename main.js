@@ -37,22 +37,24 @@ function Player(name, pawnShape, turn){
 
 const Game = (function(doc, Player){
   document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded)
-    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente initializePlayers sera executée que lors du click du user
-    submitBtn.addEventListener("click", initializePlayers, false);
+    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente initializeGame sera executée que lors du click du user
+    const scorePara = doc.querySelector('.score'); //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas fair de addeventlistener dessus
+    submitBtn.addEventListener("click", initializeGame, false);
   });
 
 
-  function initializePlayers(e){ //Initilise les players uniquement lors du click
+  function initializeGame(e){ //Initilise les players uniquement lors du click
     e.preventDefault();
     closeOverlay();
     const nameP1 = doc.querySelector("#name_p1").value;
     const nameP2 = doc.querySelector("#name_p2").value;
     const pawnP1 = doc.querySelector(".pawn").value;
-    const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})()
+    const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})();
     Game.players =  { // On set ici (lors de l'appel de getPlayrInfo) la propriété players sur Game, pas possible au bas du module.
       player1: Player(nameP1, pawnP1, true),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
       player2: Player(nameP2, pawnP2, false),
     }
+    displayScore();
   }
 
   function closeOverlay(){
@@ -60,8 +62,12 @@ const Game = (function(doc, Player){
     overlayDiv.style.display = "none";
   }
 
-  return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event)
-            //On les mettra via "Game.property = ".
+  function displayScore(){ //elle meme mise dans game.startRound
+    scorePara.innerHTML = `Score: ${Game.players.player1.name} ${Game.players.player1.points} - ${Game.players.player2.points} ${Game.players.player2.name}`
+  }
+
+  return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event) On les mettra via "Game.property = "
+    displayScore,
   }
 })(document, Player)
 
