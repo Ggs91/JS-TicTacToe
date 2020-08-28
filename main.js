@@ -1,8 +1,6 @@
-
-
 function BoardCase(caseID, doc = document){
-    let content = "";//Protégé dans la closure (car non retuné dans l'objet), accessible que via getter et setter. Elle est unique à chaque objet car chaque instansiation cré un
-    //pas besoin d'initiliser juste en faisant ca ca initilise des var qui seront dans l'objet grace a la closure
+    let content = "";//Protégé dans la closure (car non retuné dans l'objet), accessible que via getter et setter. Elle est unique à chaque objet car chaque instansiation crée en une
+    //pas besoin d'initiliser juste en faisant ca ca initilise des var qui seront unique à l'objet grace à la closure
   function writeToDOM(caseID, contentToWrite){
     doc.querySelector(`#${caseID}`).innerHTML = contentToWrite;
   }
@@ -26,18 +24,20 @@ function BoardCase(caseID, doc = document){
 }
 
 
-
 function Player(name, pawnShape, turn){
+
+
   return{
     name,
     pawnShape,
     turn,
+    points: 0,
   }
 }
 
 const Game = (function(doc, Player){
-  document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded).
-    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente getPlayer sera effective QUE lors du click du user.
+  document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded)
+    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente initializePlayers sera executée que lors du click du user
     submitBtn.addEventListener("click", initializePlayers, false);
   });
 
@@ -73,7 +73,7 @@ Game.Board = (function(){ //Board est moduel IIFE mais aussi une propréité de 
     return boardCasesIDs.map(caseID => BoardCase(caseID))
   })(3) //Ici on choisi la taille de la grille (ici 3x3)
 
-  const winningCombinationsIDs = [
+  const winningCombinationsIDs = [ //que pour la grille 3x3
     ["a1", "b1", "c1"],
     ["a2", "b2", "c2"],
     ["a3", "b3", "c3"],
