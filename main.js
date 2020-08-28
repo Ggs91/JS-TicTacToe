@@ -36,9 +36,10 @@ function Player(name, pawnShape, turn){
 }
 
 const Game = (function(doc, Player){
+  let scorePara; //doit être initiliser à l'exterieure car on l'utilise dans une fonction "displayScore()" plus bas. Pas juste une fois comme pour le submitBtn
   document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded)
     const submitBtn = doc.querySelector('.submit');  //On aura le click en attente initializeGame sera executée que lors du click du user
-    const scorePara = doc.querySelector('.score'); //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas fair de addeventlistener dessus
+    scorePara = doc.querySelector('.score'); //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas faire de addeventlistener dessus mais un innerHTML par ex
     submitBtn.addEventListener("click", initializeGame, false);
   });
 
