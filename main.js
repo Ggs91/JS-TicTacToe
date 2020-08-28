@@ -1,3 +1,5 @@
+
+
 function BoardCase(caseID, doc = document){
     let content = "";//Protégé dans la closure (car non retuné dans l'objet), accessible que via getter et setter. Elle est unique à chaque objet car chaque instansiation cré un
     //pas besoin d'initiliser juste en faisant ca ca initilise des var qui seront dans l'objet grace a la closure
@@ -83,9 +85,40 @@ const Board = (function(){ //Board est un module et non une simple factory funct
 })()
 
 function Player(name, pawnShape){
-  return{
+  return {
     name,
     pawnShape,
     turn: undefined,
   }
 }
+
+const Game = (function(doc){
+
+  document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded).
+    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente getPlayer sera effective QUE lors du click du user.
+    submitBtn.addEventListener("click", getPlayersInfos, false);
+  });
+
+
+  function getPlayersInfos(e){ //Initilise les players uniquement lors du click
+    e.preventDefault();
+    closeOverlay();
+    let nameP1 = doc.querySelector("#name_p1").value;
+    let nameP2 = doc.querySelector("#name_p2").value;
+    let pawnP1 = doc.querySelector(".pawn").value;
+    let pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})()
+    Game.players =  { // On set ici (lors de l'appel de getPlayrInfo) la propriété players sur Game, pas possible au bas du module.
+      player1: (Player(nameP1, pawnP1, true))(),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
+      player2: (Player(nameP2, pawnP2, false))(),
+    }
+  }
+
+  function closeOverlay(){
+    let overlayDiv = doc.querySelector(".starting-overlay");
+    overlayDiv.style.display = "none";
+  }
+
+  return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event)
+            //On les mettra via "Game.property = ".
+  }
+})(document)
