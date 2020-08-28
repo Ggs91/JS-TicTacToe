@@ -81,3 +81,11 @@ const Board = (function(){ //Board est un module et non une simple factory funct
     boardCases,
   }
 })()
+
+function Player(name, pawnShape){
+  return{
+    name,
+    pawnShape,
+    turn: undefined,
+  }
+}
