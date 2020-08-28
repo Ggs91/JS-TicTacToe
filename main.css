@@ -116,8 +116,8 @@ body {
 }
 
 .grid{
-  max-width: 80%;
-  min-height:80vh;
+  max-width: 60%;
+  min-height:70vh;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -127,8 +127,21 @@ body {
   border:2px solid black;
 }
 
+.score{
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
 
+.new-round{
+  background: blue;
+  color:white;
+}
 
+.new-game{
+  background: red;
+  color:white;
+}
 /*
   ========================================
   Primary header
@@ -137,7 +150,7 @@ body {
 header{
   text-align: center;
   font-size: 5rem;
-  padding:60px;
+  line-height:1;
 }
 
 
@@ -162,7 +175,8 @@ header{
 
 .welcome-title{
   font-size: 4rem;
-  padding:2rem;
+  line-height: 1.2;
+  padding: 2rem;
   font-weight: bold;
 }
 
