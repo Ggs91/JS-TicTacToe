@@ -12,7 +12,7 @@ function BoardCase(caseID, doc = document){
   return {
     set caseContent(playerPawn){
       content = playerPawn; //On utilise pas this si non on set une nouvelle ppiété sur l'objet ! La on va chercher le content de la scope au dessus. L'objet transporte rien
-      writeToDOM(caseID, playerPawn)
+      writeToDOM(caseID, playerPawn) //En utilisant le setter on va en même temps ET changer la ppiété "content" de l'objet boardCase ET ecrire le pion dans la div élément HTML lui correspondant
       return this; //on return this pour faire du methode chaineing si besoin
     },
     get caseContent(){
@@ -34,19 +34,26 @@ function Player(name, pawnShape, turn){
     points: 0,
   }
 }
-
+//les chose à sortir de game doivent êtr dans app: Addevent listerner et variable externe
 const Game = (function(doc, Player){
   let scorePara; //doit être initiliser à l'exterieure car on l'utilise dans une fonction "displayScore()" plus bas. Pas juste une fois comme pour le submitBtn
+  let overlayDiv; //Pareil on l'utilise dans plusieurs fonction. Si on la set direct dans le EventListener elle sera locale à cette fonction.
+  let results;
+  let boardCasesDivs;
   document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded)
-    const submitBtn = doc.querySelector('.submit');  //On aura le click en attente initializeGame sera executée que lors du click du user
-    scorePara = doc.querySelector('.score'); //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas faire de addeventlistener dessus mais un innerHTML par ex
-    submitBtn.addEventListener("click", initializeGame, false);
+    overlayDiv = doc.querySelector(".starting-overlay"); //On aura le click en attente initializeGame sera executée que lors du click du user
+    const submitBtn = doc.querySelector('.submit');  //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas faire de addeventlistener dessus mais un innerHTML par ex
+    scorePara = doc.querySelector('.score');
+    results = doc.querySelector('.results');
+    submitBtn.addEventListener("click", initializeGame, false); //Le click trigger initilize game pour le 1er round mais aussi par la suite quand on fera newGame qui remet la div avec son form et donc le btn
+    boardCasesDivs = Array.from(doc.getElementsByClassName("boardcase"));
+    doc.querySelector(".new-game").addEventListener("click", newGame);
+    doc.querySelector(".new-round").addEventListener("click", startRound);
   });
 
 
   function initializeGame(e){ //Initilise les players uniquement lors du click
     e.preventDefault();
-    closeOverlay();
     const nameP1 = doc.querySelector("#name_p1").value;
     const nameP2 = doc.querySelector("#name_p2").value;
     const pawnP1 = doc.querySelector(".pawn").value;
@@ -55,16 +62,74 @@ const Game = (function(doc, Player){
       player1: Player(nameP1, pawnP1, true),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
       player2: Player(nameP2, pawnP2, false),
     }
+    closeOverlay();
+    startRound()
+  }
+
+  function newGame(){ //Remet juste la div overlay et donc le button en place. Son click trigger la suite
+    overlayDiv.style.display = "flex";
+  }
+
+  function listenToCases(boolean){
+    if (boolean){
+      boardCasesDivs.forEach(boardCase => boardCase.addEventListener("click", playerMove, false));
+    } else {
+      boardCasesDivs.forEach(boardCase => boardCase.removeEventListener("click", playerMove, false));
+    }
+  }
+
+  function startRound(){
+    if (results.innerHTML) results.innerHTML = "";
+    listenToCases(true);
+    Game.Board.clear(); // Ici et pas dans newGame car on doit clear aussi pour chaque round
     displayScore();
   }
 
   function closeOverlay(){
-    let overlayDiv = doc.querySelector(".starting-overlay");
     overlayDiv.style.display = "none";
+    doc.forms[0].reset() //On reset pour le prochain Game
+  }
+
+  function playerTurn(){
+    for (let player in Game.players){
+      if (Game.players[player].turn == true) return Game.players[player];
+    }
+  }
+
+  function changePlayersTurn(){
+    for (let player in Game.players){
+      if (Game.players[player].turn == true){
+        Game.players[player].turn = false;
+      } else {
+        Game.players[player].turn = true;
+      }
+    }
+  }
+
+  function playerMove(e){
+    const playedCase = Game.Board.findCaseByID(e.target.id);//je selectionne l'objet boardcase correspondanct de l'élément HTML
+    playerTurn().play(playedCase)
+    if (Game.Board.hasAnEndingCondition()){
+      endRound();
+    } else {
+      changePlayersTurn();
+    }
+  }
+
+  function endRound(){
+    listenToCases(false)
+    if (Game.Board.hasWinningCombination()){
+      const winner = playerTurn(); // joueur qui a encore sa ppiété turn à true est le dernier qui a joué.
+      winner.points += 1;
+      displayScore();
+      results.innerHTML = `${winner.name} wins the round !`;
+    } else {
+      results.innerHTML = "Tie !";
+    }
   }
 
   function displayScore(){ //elle meme mise dans game.startRound
-    scorePara.innerHTML = `Score: ${Game.players.player1.name} ${Game.players.player1.points} - ${Game.players.player2.points} ${Game.players.player2.name}`
+    scorePara.innerHTML = `Score: ${Game.players.player1.name} ${Game.players.player1.points} - ${Game.players.player2.points} ${Game.players.player2.name}`;
   }
 
   return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event) On les mettra via "Game.property = "
@@ -120,7 +185,7 @@ Game.Board = (function(){ //Board est moduel IIFE mais aussi une propréité de 
   }
 
   function hasAnEndingCondition(){
-    return  hasWinningCombination() || isFull();
+    return  hasWinningCombination() || isFull(); //Ca peyu tres bien etre is full et winning combination
   }
 
   function clear(){
@@ -128,7 +193,9 @@ Game.Board = (function(){ //Board est moduel IIFE mais aussi une propréité de 
   }
   return {
     hasAnEndingCondition,
+    hasWinningCombination,
     clear,
     boardCases,
+    findCaseByID,
   }
 })()
