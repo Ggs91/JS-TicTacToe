@@ -61,7 +61,7 @@ const Game = (function(doc, Player){
     e.preventDefault();
     const nameP1 = doc.querySelector("#name_p1").value;
     const nameP2 = doc.querySelector("#name_p2").value;
-    const pawnP1 = doc.querySelector(".pawn").value;
+    const pawnP1 = doc.querySelector('input[name="pawn_shape"]:checked').value;
     const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})();
     Game.players =  { // On set ici (lors de l'appel de getPlayrInfo) la propriété players sur Game, pas possible au bas du module.
       player1: Player(nameP1, pawnP1, true),     //On a pas le choix car la constante Game sera déjà assignée car c'est une IIFE donc elle a déjà return le contenu de Game
