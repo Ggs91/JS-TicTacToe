@@ -6,17 +6,19 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TicTacToe</title>
   <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
-  TicTacToe
+  Tic Tac Toe
 </header>
 
 <main>
 
   <p class="score"></p>
-  <p class="results"></p>
+  <p class="results">Georges wins the round !</p>
   <div class="grid">
     <div class="boardcase" id="a1"></div>
     <div class="boardcase" id="b1"></div>
@@ -28,8 +30,10 @@
     <div class="boardcase" id="b3"></div>
     <div class="boardcase" id="c3"></div>
   </div>
-  <button class="new-round" type="button" name="restart">New Round</button>
-  <button class="new-game" type="button" name="restart">New Game</button>
+  <div class="game-btn">
+    <button class="new-round" type="button" name="new-round">New Round</button>
+    <button class="new-game" type="button" name="restart">Restart Game</button>
+  </div>
 </main>
 
         <!-- Overlay div -->
@@ -40,7 +44,7 @@
 
   <form>
     <section>
-      <h1>PLAYER 1:</h1>
+      <h1 class="p1-header">PLAYER 1:</h1>
       <p>
         <label for="name">
           Name:
@@ -68,7 +72,7 @@
     </section>
 
     <section>
-      <h1>PLAYER 2:</h1>
+      <h1 class="p2-header">PLAYER 2:</h1>
       <p>
         <label for="name">
           Name:

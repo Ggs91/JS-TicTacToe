@@ -97,7 +97,8 @@ em {
 body {
   background:#F5F5DC;
   color:;
-  font: 300 16px/22px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 700 1.5rem/0.8  'Balsamiq Sans', "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-width: 990px;
 }
 
 /*
@@ -108,39 +109,73 @@ body {
 
 .boardcase{
   display: grid;
-  justify-content: center;
   align-items: center;
-  border:2px solid black;
-  font-size: 15em;
+  font-size: 13rem;
   overflow:hidden;
+  background: #F5F5DC;
 }
 
 .grid{
   max-width: 60%;
-  min-height:70vh;
-  margin: 0 auto;
+  grid-gap: 15px;
+  min-height:60vh;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   justify-content: center;
   text-align: center;
-  border:2px solid black;
+  background: black;
+  margin-top: 3rem;
 }
 
 .score{
-  font-size: 5rem;
+  font-size: 3rem;
   line-height: 1;
   margin-bottom: 1rem;
+  text-align: center;
 }
 
-.new-round{
-  background: blue;
-  color:white;
+.results {
+  text-align: center;
+  height:5rem;
+  font-size: 4rem;
+  line-height: 1.2;
+  color:#10d304;
+  text-shadow: 2px -1px 10px rgba(0, 0, 0, 0.78);
 }
 
+.game-btn{
+  position: absolute;
+  top:5%;
+  left:3%;
+  text-align: center;
+}
+
+.new-round,
 .new-game{
-  background: red;
-  color:white;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom: 2rem;
+  display: block;
+  cursor:pointer;
+  background: none;
+  border:10px solid black;
+  border-radius:28px;
+  padding:17px 21px;
+  font: 700 2rem/1.2  'Balsamiq Sans', sans-serif;
+  color:#000000;
+  text-decoration:none;
+}
+
+.new-round:hover,
+.new-game:hover{
+  color:#F5F5DC;
+  background: black;
+}
+.animate-btn {
+    animation: effect 0.35s infinite;
 }
 /*
   ========================================
@@ -149,10 +184,29 @@ body {
 */
 header{
   text-align: center;
-  font-size: 5rem;
-  line-height:1;
+  font: 5rem/1.2 "Lobster", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color:#8B4513;
+  font-weight: bold;
+  text-shadow: -3px -1px 8px rgba(150, 150, 150, 1);
+  margin-bottom: 1rem;
 }
 
+.p1-header,
+.p2-header,
+label{
+  text-shadow: 1px 0px 1px rgba(0, 0, 0, 1);
+  letter-spacing: 0.1rem;
+}
+
+.p1-header{
+  font-size: 3rem;
+  color:#DC143C;
+}
+
+.p2-header{
+  font-size: 3rem;
+  color:#128ef0;
+}
 
 .starting-overlay{
   position:absolute;
@@ -174,8 +228,7 @@ header{
 }
 
 .welcome-title{
-  font-size: 4rem;
-  line-height: 1.2;
+  font: 4rem/1.2 "Lobster", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 2rem;
   font-weight: bold;
 }
@@ -201,9 +254,16 @@ form p {
   margin-bottom: 1rem;
 }
 
-fieldset legend{
-  margin:auto
+fieldset{
+  margin-top: 3rem;
 }
+
+fieldset legend{
+  margin:auto;
+  text-shadow: 1px 0px 1px rgba(0, 0, 0, 1);
+  letter-spacing: 0.1rem;
+}
+
 input {
   background:none;
   border: 1px solid white;
@@ -225,4 +285,34 @@ input[type="submit"]{
 input[type="submit"]:hover{
   color: #606060;
   background-color: white;
+}
+
+input[type="text"]{
+  margin-left: 0.5rem;
+}
+
+@keyframes effect {
+    0% {
+        transform: translateX(0px) rotate(0deg);
+    }
+
+    20% {
+        transform: translateX(-6px) rotate(-6deg);
+    }
+
+    40% {
+        transform: translateX(-4px) rotate(-4deg);
+    }
+
+    60% {
+        transform: translateX(6px) rotate(6deg);
+    }
+
+    80% {
+        transform: translateX(4px) rotate(4deg);
+    }
+
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
 }

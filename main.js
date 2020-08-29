@@ -25,13 +25,16 @@ function BoardCase(caseID, doc = document){
 
 
 function Player(name, pawnShape, turn){
-
+  function play(boardCase){
+    if (boardCase.isAvailable()) boardCase.caseContent = this.pawnShape; //On utilise caseContent pour ecrire la div HTML et changer la ppiété content de l'objet boardcase
+  }
 
   return{
     name,
     pawnShape,
     turn,
     points: 0,
+    play,
   }
 }
 //les chose à sortir de game doivent êtr dans app: Addevent listerner et variable externe
@@ -40,6 +43,8 @@ const Game = (function(doc, Player){
   let overlayDiv; //Pareil on l'utilise dans plusieurs fonction. Si on la set direct dans le EventListener elle sera locale à cette fonction.
   let results;
   let boardCasesDivs;
+  let newRound = doc.querySelector(".new-round");
+
   document.addEventListener('DOMContentLoaded', () => { // Game est IIFE, donc cette fonction sera de suite mise en place (une fois la page loaded)
     overlayDiv = doc.querySelector(".starting-overlay"); //On aura le click en attente initializeGame sera executée que lors du click du user
     const submitBtn = doc.querySelector('.submit');  //On initialize tous les elements qu'on veut target après que la page soit loadée. Même si on va pas faire de addeventlistener dessus mais un innerHTML par ex
@@ -48,7 +53,7 @@ const Game = (function(doc, Player){
     submitBtn.addEventListener("click", initializeGame, false); //Le click trigger initilize game pour le 1er round mais aussi par la suite quand on fera newGame qui remet la div avec son form et donc le btn
     boardCasesDivs = Array.from(doc.getElementsByClassName("boardcase"));
     doc.querySelector(".new-game").addEventListener("click", newGame);
-    doc.querySelector(".new-round").addEventListener("click", startRound);
+    newRound.addEventListener("click", startRound);
   });
 
 
@@ -79,7 +84,10 @@ const Game = (function(doc, Player){
   }
 
   function startRound(){
-    if (results.innerHTML) results.innerHTML = "";
+    if (results.innerHTML) {  //Si ce n'est pas le 1er round joué
+      results.innerHTML = "";
+      newRound.classList.remove("animate-btn");
+    }
     listenToCases(true);
     Game.Board.clear(); // Ici et pas dans newGame car on doit clear aussi pour chaque round
     displayScore();
@@ -117,6 +125,7 @@ const Game = (function(doc, Player){
   }
 
   function endRound(){
+    newRound.classList.add("animate-btn");
     listenToCases(false)
     if (Game.Board.hasWinningCombination()){
       const winner = playerTurn(); // joueur qui a encore sa ppiété turn à true est le dernier qui a joué.
