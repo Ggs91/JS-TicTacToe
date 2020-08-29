@@ -129,7 +129,7 @@ const Game = (function(doc, Player){
   }
 
   function displayScore(){ //elle meme mise dans game.startRound
-    scorePara.innerHTML = `Score: ${Game.players.player1.name} ${Game.players.player1.points} - ${Game.players.player2.points} ${Game.players.player2.name}`;
+    scorePara.innerHTML = `Score: ${Game.players.player1.name}(${Game.players.player1.pawnShape}) ${Game.players.player1.points} - ${Game.players.player2.points} ${Game.players.player2.name}(${Game.players.player2.pawnShape})`;
   }
 
   return { //Obliger de return un objet (même s'il est vide) pour qu'on assigne Game avec qqchose right away. Si des element doivent etre ajouter apparaissent par la suite (suite à des event) On les mettra via "Game.property = "
