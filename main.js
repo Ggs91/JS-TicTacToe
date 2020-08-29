@@ -25,13 +25,16 @@ function BoardCase(caseID, doc = document){
 
 
 function Player(name, pawnShape, turn){
-
+  function play(boardCase){
+    if (boardCase.isAvailable()) boardCase.caseContent = this.pawnShape; //On utilise caseContent pour ecrire la div HTML et changer la ppiété content de l'objet boardcase
+  }
 
   return{
     name,
     pawnShape,
     turn,
     points: 0,
+    play,
   }
 }
 //les chose à sortir de game doivent êtr dans app: Addevent listerner et variable externe
