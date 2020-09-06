@@ -1,10 +1,10 @@
 import BoardCase from './boardCase.js'
 
-export default (function(){
+export default (function(doc){
 
   const boardCases = (function(gridSize){ //Instanciation of the boardcases. "boardCases" variable is assigned the return of the IIFE invokation
     const boardCasesIDs = _generateBoardCasesIDsArray(gridSize);
-    return boardCasesIDs.map(caseID => BoardCase (caseID))
+    return boardCasesIDs.map(caseID => BoardCase(caseID, doc))
   })(3) //Here we select a 3x3 grid size
 
   const _winningCombinationsIDs = [ //work only for 3x3 grid
@@ -65,4 +65,4 @@ export default (function(){
     clear,
     findCaseByID,
   }
-})()
+})(document)
