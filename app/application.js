@@ -8,7 +8,7 @@ export default function(doc) {
     const newGameBtn = doc.querySelector(".new-game");
 
     submitBtn.addEventListener("click", Game.initializeGame.bind(Game));
-    newRoundBtn.addEventListener("click", Game.startRound.bind(Game));  //utilisation de startRound de manirer externe.Ici on vaz chercher startRound (l'expression de la fction) chez son hote. Et on lui donne un context car addevent listener le change
+    newRoundBtn.addEventListener("click", Game.startRound.bind(Game));
     newGameBtn.addEventListener("click", Game.newGame);
   });
 }
