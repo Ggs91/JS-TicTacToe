@@ -1,14 +1,15 @@
 import Player from './player.js'
 import Board from './board.js'
 
-export default (function(doc){
+export default (function(doc, player, board){
 
-  let _overlayDiv; //Declaration of vars that will be in the scope of the whole module
+  let _overlayDiv; //Declaration of variables that will be in the scope of the whole module
   let _scorePara;
   let _results;
   let _boardCasesDivs;
   let _newRoundBtn;
   let _handler;
+  let self;
 
   document.addEventListener('DOMContentLoaded', () => { //Assign HTML elements to vars once the document is lodaded
     _overlayDiv = doc.querySelector(".starting-overlay");
@@ -18,108 +19,101 @@ export default (function(doc){
     _newRoundBtn = doc.querySelector(".new-round");
   })
 
-  function initializeGame(e){
-    e.preventDefault();               // Assign "playerMove" expression binded to "Game" context
-    _handler = playerMove.bind(this); // So we store a single reference that will be used in addEventListener & removeEventListener
-
-    const nameP1 = doc.querySelector("#name_p1").value; //Retrieve values from the form fields (users inputs)
-    const nameP2 = doc.querySelector("#name_p2").value;
-    const pawnP1 = doc.querySelector('input[name="pawn_shape"]:checked').value;
-    const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})();
-
-    this.players =  { //Set the "players" property on the "Game" module, once we get users inputs to initialize the Players. "player" is part of "Game" API
-      player1: Player(nameP1, pawnP1, true),
-      player2: Player(nameP2, pawnP2, false),
-    }
+  function initializeGame(){
+    self = this;  //referencing the value of "this" (the Game module)
+    _initilizePlayers()
     _closeOverlay();
-    this.startRound();
+    startRound();
   }
-
-
 
   function startRound(){
     if (_results.innerHTML) { //Skip if it's not the first round played
       _results.innerHTML = "";
       _newRoundBtn.classList.remove("animate-btn");
     }
-    this.listenToCases(true); //We "turn on" the eventlistener on the board cases
-    this.board.clear();
-    this.displayScore();
+    _listenToCases(true); //We "turn on" the eventlistener on the board cases
+    self.board.clear();
+    _displayScore();
   }
 
   function newGame(){ //Just put the _overlayDiv back to the screen. The click to its submit button triggers a new game
     _overlayDiv.style.display = "flex";
   }
 
+  //Private Methods
 
-  function listenToCases(boolean){
+  function _initializePlayers(){
+    const nameP1 = doc.querySelector("#name_p1").value; //Retrieve values from the form fields (users inputs)
+    const nameP2 = doc.querySelector("#name_p2").value;
+    const pawnP1 = doc.querySelector('input[name="pawn_shape"]:checked').value;
+    const pawnP2 = (function(){ return pawnP1 == "X" ? "O" : "X"})();
+
+    self.players = { //Set the "players" property on the "Game" module, once we get users inputs to initialize the Players. "player" is part of "Game" API
+      player1: player(nameP1, pawnP1, true),
+      player2: player(nameP2, pawnP2, false),
+    }
+  }
+
+  function _listenToCases(boolean){
     if (boolean){
-      _boardCasesDivs.forEach(boardCase => boardCase.addEventListener("click", _handler, true)); //same reference used in both listeners.
+      _boardCasesDivs.forEach(boardCase => boardCase.addEventListener("click", _playerMove, true)); //same reference used in both listeners.
     } else {
-      _boardCasesDivs.forEach(boardCase => boardCase.removeEventListener("click", _handler, true));
+      _boardCasesDivs.forEach(boardCase => boardCase.removeEventListener("click", _playerMove, true));
     }
   }
 
-  function playerTurn(){ //return the player whose turn to play based on players "turn" property value (true/false)
-    for (let player in this.players){
-      if (this.players[player].turn == true) return this.players[player];
+  function _playerTurn(){ //return the player whose turn to play based on players "turn" property value (true/false)
+    for (let player in self.players){
+      if (self.players[player].turn == true) return self.players[player];
     }
   }
 
-  function changePlayersTurn(){ //Switch players "turn" property value from true to false and vice versa
-    for (let player in this.players){
-      if (this.players[player].turn == true){
-        this.players[player].turn = false;
+  function _changePlayersTurn(){ //Switch players "turn" property value from true to false and vice versa
+    for (let player in self.players){
+      if (self.players[player].turn == true){
+        self.players[player].turn = false;
       } else {
-        this.players[player].turn = true;
+        self.players[player].turn = true;
       }
     }
   }
 
-  function playerMove(e){
-    const playedCase = this.board.findCaseByID(e.target.id); //Maps the HTML "case" element clicked with the "caseboard" object in the Game.board.boardCases property
-    this.playerTurn().play(playedCase)
-    if (this.board.hasAnEndingCondition()){
-      this.endRound();
+  function _playerMove(e){
+    const playedCase = self.board.findCaseByID(e.target.id); //Maps the HTML "case" element clicked with the "caseboard" object in the Game.board.boardCases property
+    _playerTurn().play(playedCase);
+    if (self.board.hasAnEndingCondition()){
+      _endRound();
     } else {
-      this.changePlayersTurn();
+      _changePlayersTurn();
     }
   }
 
-  function endRound(){
+  function _endRound(){
     _newRoundBtn.classList.add("animate-btn");
-    this.listenToCases(false); //remove click listener from HTML cases
-    if (this.board.hasWinningCombination()){
-      const winner = this.playerTurn(); // player who has his turn property to 'true' is the last one who played
+    _listenToCases(false); //remove click listener from HTML cases
+    if (self.board.hasWinningCombination()){
+      const winner = _playerTurn(); // player who has his turn property to 'true' is the last one who played
       winner.points += 1;
-      this.displayScore();
+      _displayScore();
       _results.innerHTML = `${winner.name} wins the round !`;
     } else {
       _results.innerHTML = "Tie !";
     }
   }
 
-  //Private Methods
-
   function _closeOverlay(){
     _overlayDiv.style.display = "none";
     doc.forms[0].reset() //Rests the fields of the form for the next Game
   }
 
-  function displayScore(){
-    _scorePara.innerHTML = `Score: ${this.players.player1.name}(${this.players.player1.pawnShape}) ${this.players.player1.points} - ${this.players.player2.points} ${this.players.player2.name}(${this.players.player2.pawnShape})`;
+  function _displayScore(){
+    _scorePara.innerHTML = `Score: ${self.players.player1.name}(${self.players.player1.pawnShape}) ${self.players.player1.points} - ${self.players.player2.points} ${self.players.player2.name}(${self.players.player2.pawnShape})`;
   }
 
-  return { //"Game" API. Properties and methods accessible to the public
+  return  { //"Game" API. Properties and methods accessible to the public
     initializeGame,
     startRound,
     newGame,
-    displayScore,
-    listenToCases,
-    endRound,
-    changePlayersTurn,
-    playerTurn,
-    playerMove,
-    board: Board,
+    board,
   }
-})(document)
+})(document, Player, Board) //Dependencies injection
