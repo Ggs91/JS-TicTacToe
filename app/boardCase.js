@@ -1,4 +1,4 @@
-export default function(caseID, doc = document){
+export default function(caseID, doc){
 
   let _content = "";// protected in the closure (not returned in the object). Accessible to the public only through setter and getter (APIs).
     //It's unique to each instance of the "boardCase" factory. Because each instanciation create a new closure.
