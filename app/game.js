@@ -9,7 +9,6 @@ export default (function(doc, player, board){
   let _boardCasesDivs;
   let _newRoundBtn;
   let _handler;
-  let self;
 
   document.addEventListener('DOMContentLoaded', () => { //Assign HTML elements to vars once the document is lodaded
     _overlayDiv = doc.querySelector(".starting-overlay");
@@ -20,8 +19,7 @@ export default (function(doc, player, board){
   })
 
   function initializeGame(){
-    self = this;  //referencing the value of "this" (the Game module)
-    _initilizePlayers()
+    _initializePlayers()
     _closeOverlay();
     startRound();
   }
@@ -110,10 +108,12 @@ export default (function(doc, player, board){
     _scorePara.innerHTML = `Score: ${self.players.player1.name}(${self.players.player1.pawnShape}) ${self.players.player1.points} - ${self.players.player2.points} ${self.players.player2.name}(${self.players.player2.pawnShape})`;
   }
 
-  return  { //"Game" API. Properties and methods accessible to the public
+  const self = { //"Game" API. Properties and methods accessible to the public
     initializeGame,
     startRound,
     newGame,
     board,
   }
+
+  return self;
 })(document, Player, Board) //Dependencies injection
