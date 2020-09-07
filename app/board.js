@@ -58,11 +58,13 @@ export default (function(doc){
     boardCases.forEach(boardcase => boardcase.caseContent = "")
   }
 
-  return {
+  const self = {
     boardCases,
     hasAnEndingCondition,
     hasWinningCombination,
     clear,
     findCaseByID,
   }
+
+  return self;
 })(document)
