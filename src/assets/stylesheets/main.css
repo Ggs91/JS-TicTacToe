@@ -107,7 +107,7 @@ body {
   ========================================
 */
 
-.boardcase{
+.boardcase {
   display: grid;
   align-items: center;
   font-size: 13rem;
@@ -115,7 +115,7 @@ body {
   background: #F5F5DC;
 }
 
-.grid{
+.grid {
   max-width: 60%;
   grid-gap: 15px;
   min-height:60vh;
@@ -130,7 +130,7 @@ body {
   margin-top: 3rem;
 }
 
-.score{
+.score {
   font-size: 3rem;
   line-height: 1;
   margin-bottom: 1rem;
@@ -146,7 +146,7 @@ body {
   text-shadow: 2px -1px 10px rgba(0, 0, 0, 0.78);
 }
 
-.game-btn{
+.game-btn {
   position: absolute;
   top:5%;
   left:3%;
@@ -154,7 +154,7 @@ body {
 }
 
 .new-round,
-.new-game{
+.new-game {
   margin-left:auto;
   margin-right:auto;
   margin-bottom: 2rem;
@@ -170,7 +170,7 @@ body {
 }
 
 .new-round:hover,
-.new-game:hover{
+.new-game:hover {
   color:#F5F5DC;
   background: black;
 }
@@ -182,7 +182,7 @@ body {
   Primary header
   ========================================
 */
-header{
+header {
   text-align: center;
   font: 5rem/1.2 "Lobster", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#8B4513;
@@ -191,24 +191,13 @@ header{
   margin-bottom: 1rem;
 }
 
-.p1-header,
-.p2-header,
-label{
-  text-shadow: 1px 0px 1px rgba(0, 0, 0, 1);
-  letter-spacing: 0.1rem;
-}
+/*
+  ========================================
+  Overlay Div
+  ========================================
+*/
 
-.p1-header{
-  font-size: 3rem;
-  color:#DC143C;
-}
-
-.p2-header{
-  font-size: 3rem;
-  color:#128ef0;
-}
-
-.starting-overlay{
+.starting-overlay {
   position:absolute;
   top:0;
   right:0;
@@ -223,17 +212,36 @@ label{
   background: rgba(0, 0, 0, 0.8);
   text-align: center;
 }
+
 .starting-overlay > * {
   flex-basis: 80%;
 }
 
-.welcome-title{
+.p1-header,
+.p2-header,
+label{
+  text-shadow: 1px 0px 1px rgba(0, 0, 0, 1);
+  letter-spacing: 0.1rem;
+}
+
+.p1-header {
+  font-size: 3rem;
+  color:#DC143C;
+}
+
+.p2-header {
+  font-size: 3rem;
+  color:#128ef0;
+}
+
+
+.welcome-title {
   font: 4rem/1.2 "Lobster", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding: 2rem;
   font-weight: bold;
 }
 
-form{
+form {
   border: 5px white solid;
   width:70%;
   background: #606060;
@@ -254,11 +262,11 @@ form p {
   margin-bottom: 1rem;
 }
 
-fieldset{
+fieldset {
   margin-top: 3rem;
 }
 
-fieldset legend{
+fieldset legend {
   margin:auto;
   text-shadow: 1px 0px 1px rgba(0, 0, 0, 1);
   letter-spacing: 0.1rem;
@@ -270,7 +278,7 @@ input {
   color:white;
   padding: 0.5rem;
 }
-input[type="submit"]{
+input[type="submit"] {
   margin-bottom: 1rem;
   width:50%;
   background:none;
@@ -282,12 +290,12 @@ input[type="submit"]{
   border-radius: 70px;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover {
   color: #606060;
   background-color: white;
 }
 
-input[type="text"]{
+input[type="text"] {
   margin-left: 0.5rem;
 }
 
