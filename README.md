@@ -1,6 +1,7 @@
 # Tic Tac Toe game in vanilla JS.
 HTML/CSS for UI and webpack for assets management. 
 Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s Javascript Course.
+
 [Live demo](https://ggs91.github.io/JS-TicTacToe/)
 ## Learning outcomes
 
