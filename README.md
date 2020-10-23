@@ -17,7 +17,7 @@ Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s 
 2. Separations of concerns:
 
 * Methods with multiple responsabilities are splited into small methods. This gives a cleaner and more maintainable code. 
-For exemple, here is the code of `initializeGame()` that takes care of initializing the players, closeing an overlay div in the HTML, and starting a round:
+For exemple, here is the code of `initializeGame()` that takes care of initializing the players, closing an overlay div in the HTML, and starting a round:
 ```
 function initializeGame() {
   _initializePlayers();
@@ -27,7 +27,39 @@ function initializeGame() {
 ```
 * Files architecture: 1 module per file, using ES6 modules.
 
-### To be imporved
+### Pieces I'm proud of:
+
+1. A small algorithm that generate an array of cases names depending on the desired gridsize. 
+For exemple for a regular 3x3 grid size it will return ["a1", "a2", "a3", ... , "c1", "c2", "c3"].
+```
+function _generateBoardCasesIDsArray(gridSize) {
+  const arrayOfCases = [];
+  const gridColumnID = Array.from({ length: gridSize }, (_, i) =>
+    String.fromCharCode("a".charCodeAt(0) + i)
+  ); // ["a", "b", "c"...]
+  const gridRowsID = [...Array(gridSize + 1).keys()].slice(1); // ["1", "2", "3"...]
+
+  gridColumnID.forEach((columnID) => {
+    gridRowsID.forEach((rowID) => {
+      arrayOfCases.push(columnID + rowID);
+    });
+  });
+
+  return arrayOfCases; // ["a1", "a2", "a3", "b1"...]
+}
+```
+This can then be used by another method that will iterate over it and create the `BoardCase`s assigning each case an id of this array.
+```
+const boardCases = (function (gridSize) {
+  // Instanciation of the boardcases. "boardCases" variable is assigned the return of the IIFE invokation
+  const boardCasesIDs = _generateBoardCasesIDsArray(gridSize);
+  return boardCasesIDs.map((caseID) => BoardCase(caseID, doc));
+})(3); // Here we select a 3x3 grid size
+```
+
+2.
+
+### To be improved:
 1. Exctracting DOM manipulations into it's own module separated from the logic. Currently this is not respecting the single responsability principle.
 
 2. Decoupling. Currently objects are tightly coupled. For exemple, to be created, a `Board` need to know about `BoardCase`s. And `Game` depend on `Player` and `Board`. Fixing this is possible using a Pub/Sub pattern.
