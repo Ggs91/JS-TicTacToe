@@ -46,9 +46,8 @@ export default (function(doc, player, board) {
     const nameP1 = doc.querySelector("#name_p1").value; //Retrieve values from the form fields (users inputs)
     const nameP2 = doc.querySelector("#name_p2").value;
     const pawnP1 = doc.querySelector('input[name="pawn_shape"]:checked').value;
-    const pawnP2 = (function() {
-      return pawnP1 == "X" ? "O" : "X";
-    })();
+    const pawnP2 = pawnP1 == "X" ? "O" : "X";
+  
 
     self.players = {
       //Set the "players" property on the "Game" module, once we get users inputs to initialize the Players. "player" is part of "Game" API
