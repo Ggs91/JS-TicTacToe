@@ -4,7 +4,7 @@ Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s 
 
 ## Learning outcomes
 
-#### Implementations:
+### Implementations:
 
 1. Encapsulation
 
@@ -25,10 +25,10 @@ function initializeGame() {
   startRound();
 }
 ```
-* Files architecture: 1 module per file, using ES6 modules
+* Files architecture: 1 module per file, using ES6 modules.
 
-#### To be imporved
+### To be imporved
 1. Exctracting DOM manipulations into it's own module separated from the logic. Currently this is not respecting the single responsability principle.
 
-2. Decoupling. Currently objects are tightly coupled. For exemple, to be created, a board need to know about boardcases. And "Game" depend on "Player and "Board". Fixing this is possible using a Pub/Sub pattern.
+2. Decoupling. Currently objects are tightly coupled. For exemple, to be created, a `Board` need to know about `BoardCase`s. And `Game` depend on `Player` and `Board`. Fixing this is possible using a Pub/Sub pattern.
 
