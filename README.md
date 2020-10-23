@@ -1,4 +1,4 @@
-# Tic Tac Toe game in vanilla JS.
+# Tic Tac Toe game in vanilla JS
 HTML/CSS for UI and webpack for assets management. 
 Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s Javascript Course.
 
@@ -20,6 +20,8 @@ Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s 
 * Methods with multiple responsabilities are splited into small methods. This gives a cleaner and more maintainable code. 
 For exemple, here is the code of `initializeGame()` that takes care of initializing the players, closing an overlay div in the HTML, and starting a round:
 ```
+// src/lib/game.js
+
 function initializeGame() {
   _initializePlayers();
   _closeOverlay();
@@ -37,6 +39,8 @@ This is my first project using webpack. After a lot of research and few headache
 1. A small algorithm that generate an array of cases names depending on the desired gridsize. 
 For exemple for a regular 3x3 grid size it will return ["a1", "a2", "a3", ... , "c1", "c2", "c3"].
 ```
+// src/lib/board.js
+
 function _generateBoardCasesIDsArray(gridSize) {
   const arrayOfCases = [];
   const gridColumnID = Array.from({ length: gridSize }, (_, i) =>
@@ -55,15 +59,14 @@ function _generateBoardCasesIDsArray(gridSize) {
 ```
 This can then be used by another method that will iterate over it and create the `BoardCase`s assigning each case an id of this array.
 ```
+// src/lib/board.js
+
 const boardCases = (function (gridSize) {
   // Instanciation of the boardcases. "boardCases" variable is assigned the return of the IIFE invokation
   const boardCasesIDs = _generateBoardCasesIDsArray(gridSize);
   return boardCasesIDs.map((caseID) => BoardCase(caseID, doc));
 })(3); // Here we select a 3x3 grid size
 ```
-
-2.
-
 ### To be improved:
 1. Exctracting DOM manipulations into it's own module separated from the logic. Currently this is not respecting the single responsability principle.
 
