@@ -27,6 +27,10 @@ function initializeGame() {
 ```
 * Files architecture: 1 module per file, using ES6 modules.
 
+3. Using webpack:
+
+This is my first project using webpack. After a lot of research and few headaches to configure it, I've managed to set it properly. I've a splited the configuration into 3 files, added babel, a linter and css autoprefixer. It's worth the time spent to learn it considering the huge benefits that it brings to the workflow.  
+
 ### Pieces I'm proud of:
 
 1. A small algorithm that generate an array of cases names depending on the desired gridsize. 
