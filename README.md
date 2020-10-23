@@ -101,5 +101,7 @@ npm run server
 ![](/screenshots/screen3.png)
 ## Author
 **Georges Atalla**
+
 Email - georges_atalla@hotmail.fr
+
 Github - https://github.com/Ggs91/
