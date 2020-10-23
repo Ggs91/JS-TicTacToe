@@ -73,3 +73,33 @@ const boardCases = (function (gridSize) {
 1. Exctracting DOM manipulations into it's own module separated from the logic. Currently this is not respecting the single responsability principle.
 
 2. Decoupling. Currently objects are tightly coupled. For exemple, to be created, a `Board` need to know about `BoardCase`s. And `Game` depend on `Player` and `Board`. Fixing this is possible using a Pub/Sub pattern.
+
+## Installation
+
++ Clone this repo
+```
+git clone https://github.com/Ggs91/JS-TicTacToe.git
+```
++ Enter the repo
+```
+cd JS-TicTacToe
+```
++ Download dependencies
+
+```
+npm run build
+```
+
++ Launch dev server
+```
+npm run server
+```
+
+## Screenshots
+![](/screenshots/screen1.png)
+![](/screenshots/screen2.png)
+![](/screenshots/screen3.png)
+## Author
+**Georges Atalla**
+Email - georges_atalla@hotmail.fr
+Github - https://github.com/Ggs91/
