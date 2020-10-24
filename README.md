@@ -2,7 +2,7 @@
 HTML/CSS for UI and webpack for assets management.
 Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s Javascript Course.
 
-[Live demo](https://ggs91.github.io/JS-TicTacToe/)
+[Live demo](https://ggs91.github.io/JS-TicTacToe/dist/index.html)
 ## Learning outcomes
 
 ### Implementations:
