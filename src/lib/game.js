@@ -28,6 +28,7 @@ export default (function(doc, player, board) {
     if (_results.innerHTML) {
       //Skip if it's not the first round played
       _results.innerHTML = "";
+      self.board.toggleHighlightWinningCombination();
       _newRoundBtn.classList.remove("animate-btn");
     }
     _listenToCases(true); //We "turn on" the eventlistener on the board cases
@@ -47,7 +48,7 @@ export default (function(doc, player, board) {
     const nameP2 = doc.querySelector("#name_p2").value;
     const pawnP1 = doc.querySelector('input[name="pawn_shape"]:checked').value;
     const pawnP2 = pawnP1 == "X" ? "O" : "X";
-  
+
 
     self.players = {
       //Set the "players" property on the "Game" module, once we get users inputs to initialize the Players. "player" is part of "Game" API
@@ -100,6 +101,7 @@ export default (function(doc, player, board) {
     _newRoundBtn.classList.add("animate-btn");
     _listenToCases(false); //remove click listener from HTML cases
     if (self.board.hasWinningCombination()) {
+      self.board.toggleHighlightWinningCombination();
       const winner = _playerTurn(); // player who has his turn property to 'true' is the last one who played
       winner.points += 1;
       _displayScore();

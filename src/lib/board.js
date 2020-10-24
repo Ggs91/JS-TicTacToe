@@ -42,7 +42,31 @@ export default (function (doc) {
     return boardCases.every((boardcase) => boardcase.caseContent);
   }
 
+  function _findWinningCombinationArray() {
+    //Find the winning combination arrray
+    const WinningCombinationArray = _winningCombinationsIDs.find((combinationIDsarray) => {
+      return (
+        combinationIDsarray.every(
+          (caseID) => findCaseByID(caseID).caseContent === "X"
+        ) ||
+        combinationIDsarray.every(
+          (caseID) => findCaseByID(caseID).caseContent === "O"
+        )
+      );
+    });
+    return WinningCombinationArray
+  }
+
   //  Public methods
+
+  function toggleHighlightWinningCombination() { //a mettre dans new game et end game
+    if (hasWinningCombination()) {
+      const winningArray = _findWinningCombinationArray();
+      winningArray.forEach((boardID) => {
+        doc.getElementById(boardID).classList.toggle("highlight");
+      });
+    }
+  }
 
   function findCaseByID(boardID) {
     // Maps the HTML id's attribute of the div element with the corresponding boardcase object in the Board.boardCase property
@@ -74,6 +98,7 @@ export default (function (doc) {
     boardCases,
     hasAnEndingCondition,
     hasWinningCombination,
+    toggleHighlightWinningCombination,
     clear,
     findCaseByID,
   };
