@@ -10,14 +10,16 @@
 </head>
 <body>
 
-<header>
-  Tic Tac Toe
-</header>
+<div class="flex-container">
+  <div>
+    <header>Tic Tac Toe</header>
+    <p class="score"></p>
+    <p class="results"></p>
+  </div>
 
-<main>
-  <p class="score"></p>
-  <p class="results"></p>
-  <div class="grid">
+  <!-- Grid Top -->
+
+  <div class="grid-bottom">
     <div class="boardcase" id="a1"></div>
     <div class="boardcase" id="b1"></div>
     <div class="boardcase" id="c1"></div>
@@ -28,17 +30,20 @@
     <div class="boardcase" id="b3"></div>
     <div class="boardcase" id="c3"></div>
   </div>
-  <div class="game-btn">
+
+  <!-- Flex Container -->
+
+  <div class="flex-buttons">
     <button class="new-round" type="button" name="new-round">New Round</button>
     <button class="new-game" type="button" name="restart">Restart Game</button>
   </div>
-</main>
+</div>
 
         <!-- Overlay div -->
 
-<div class = "starting-overlay">
+<div class="starting-overlay">
 
-  <div class= welcome-title>Welcome to TicTacToe</div>
+  <h1 class="welcome-title">Welcome to TicTacToe</h1>
 
   <form>
     <section>
