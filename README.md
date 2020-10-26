@@ -87,7 +87,7 @@ cd JS-TicTacToe
 + Download dependencies
 
 ```
-npm run build
+npm install
 ```
 
 + Launch dev server
