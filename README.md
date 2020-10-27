@@ -7,7 +7,7 @@ Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s 
 
 ### Implementations:
 
-**1. Encapsulation**
+**1. <u>Encapsulation</u>**
 
 * No code in the globale scope. Factory functions and module patterns are namespaced in modules.
 
