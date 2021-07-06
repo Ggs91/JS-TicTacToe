@@ -19,7 +19,7 @@ Part of the curriculum of [The Odin Project](https://www.theodinproject.com/)'s 
 
 * Methods with multiple responsabilities are splited into small methods. This gives a cleaner and more maintainable code.
 For exemple, here is the code of `initializeGame()` that takes care of initializing the players, closing an overlay div in the HTML, and starting a round:
-```
+```javascript
 // src/lib/game.js
 
 function initializeGame() {
@@ -40,7 +40,7 @@ This is my first project using webpack. After a lot of research and few headache
 
 I made a function that generate an array of cases names depending on the desired gridsize.
 For exemple for a regular 3x3 grid size it will return ["a1", "a2", "a3", ... , "c1", "c2", "c3"].
-```
+```javascript
 // src/lib/board.js
 
 function _generateBoardCasesIDsArray(gridSize) {
@@ -60,7 +60,7 @@ function _generateBoardCasesIDsArray(gridSize) {
 }
 ```
 This can then be used by another method that will iterate over it and create the `BoardCase`s assigning each case an id of this array.
-```
+```javascript
 // src/lib/board.js
 
 const boardCases = (function (gridSize) {
